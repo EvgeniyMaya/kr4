@@ -1,3 +1,4 @@
+import json
 from src.api.hh_api import HeadHunterAPI
 from src.models.vacancy import Vacancy
 from src.utils.helpers import print_vacancies
@@ -13,7 +14,9 @@ def user_interaction():
     hh_api = HeadHunterAPI()
     hh_vacancies = hh_api.get_vacancies(search_query)
 
-    print("Ответ API:", hh_vacancies)
+    with open('SONSave.json', "w", encoding='utf-8') as f:
+        f.write(json.dumps(hh_vacancies, indent=4, ensure_ascii=False))
+
 
     if hh_vacancies and 'items' in hh_vacancies:
         vacancies_list = []
